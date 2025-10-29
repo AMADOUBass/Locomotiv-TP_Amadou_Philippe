@@ -1,9 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Locomotiv.Utils.Services;
+﻿using Locomotiv.Utils.Services;
+using Microsoft.EntityFrameworkCore;
+using Seismoscope.Utils;
 using System.IO;
 
 public class ApplicationDbContext : DbContext
 {
+
+    public DbSet<User> Users { get; set; }
+    public DbSet<Station> Stations { get; set; }
+
+
+
     protected override void OnConfiguring(
        DbContextOptionsBuilder optionsBuilder)
     {
@@ -16,17 +23,55 @@ public class ApplicationDbContext : DbContext
         optionsBuilder.UseSqlite(connectionString);
     }
 
-    public DbSet<User> Users { get; set; }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+    }
+
 
     public void SeedData()
     {
         if (!Users.Any())
         {
+            var (adminHash, adminSalt) = PassWordHelper.HashPassword("adminpass");
+            var (employeHash, employeSalt) = PassWordHelper.HashPassword("employepass");
+
+           
+            var station = new Station
+            {
+                Nom = "Gare de Québec",
+                Localisation = "Vieux-Québec",
+                Latitude = 46.8139,
+                Longitude = -71.2082,
+                CapaciteMaxTrains = 5
+            };
+            Stations.Add(station); 
+
             Users.AddRange(
-                new User { Prenom = "John", Nom = "Doe", Username = "johndoe", Password = "password123" },
-                new User { Prenom = "Jane", Nom = "Doe", Username = "janedoe", Password = "password123" }
+                new User
+                {
+                    Prenom = "Admin",
+                    Nom = "Admin",
+                    Username = "admin",
+                    PasswordHash = adminHash,
+                    PasswordSalt = adminSalt,
+                    Role = User.UserRole.Admin
+                },
+                new User
+                {
+                    Prenom = "Employe",
+                    Nom = "employe",
+                    Username = "employe",
+                    PasswordHash = employeHash,
+                    PasswordSalt = employeSalt,
+                    Role = User.UserRole.Employe,
+                    Station = station 
+                }
             );
+
             SaveChanges();
         }
     }
+
 }

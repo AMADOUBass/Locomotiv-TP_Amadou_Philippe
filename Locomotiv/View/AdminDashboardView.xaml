@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="Locomotiv.View.AdminDashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:gmap="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
+             mc:Ignorable="d"
+             d:DesignHeight="400" d:DesignWidth="600">
+    <Grid Margin="20">
+        
+        <StackPanel>
+            <TextBlock Text="Carte interactive de Québec" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+            <Button Content="Ajouter un train" Margin="5"/>
+            <Button Content="Supprimer un train" Margin="5"/>
+            <Button Content="Planifier un itinéraire" Margin="5"/>
+
+            <Grid>
+                <gmap:GMapControl x:Name="MapControl" Width="1200" Height="700" Margin="0 30 0 0"/>
+            </Grid>
+        </StackPanel>
+
+        
+    </Grid>
+</UserControl>

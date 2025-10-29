@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Locomotiv.View
 {
     /// <summary>
-    /// Logique d'interaction pour ConnectView.xaml
+    /// Logique d'interaction pour EmployeDashboardView.xaml
     /// </summary>
-    public partial class ConnectView : UserControl
+    public partial class EmployeDashboardView : UserControl
     {
-        public ConnectView()
+        public EmployeDashboardView()
         {
             InitializeComponent();
         }

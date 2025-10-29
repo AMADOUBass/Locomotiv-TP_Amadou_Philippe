@@ -8,13 +8,19 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries />
+
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                 <view:HomeView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:ConnectUserViewModel}">
-                <view:ConnectView/>
+
+            <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
+                <view:LoginView/>
             </DataTemplate>
-            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+         
         </ResourceDictionary>
     </Application.Resources>
 </Application>

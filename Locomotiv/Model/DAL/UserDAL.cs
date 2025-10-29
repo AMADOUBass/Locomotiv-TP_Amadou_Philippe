@@ -2,6 +2,7 @@
 using System.Linq;
 using Locomotiv.Model.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Seismoscope.Utils;
 
 namespace Locomotiv.Model.DAL
 {
@@ -14,9 +15,15 @@ namespace Locomotiv.Model.DAL
             _context = c;
         }
 
-        public User? FindByUsernameAndPassword(string u, string p)
+        public User? FindByUsernameAndPassword(string username, string password)
         {
-            return _context.Users.FirstOrDefault(u2 => u2.Username == u && u2.Password == p);
+            var user = _context.Users.FirstOrDefault(u => u.Username == username);
+            if (user == null)
+                return null;
+
+            bool isPasswordValid = PassWordHelper.VerifyPassword(password, user.PasswordHash, user.PasswordSalt);
+            return isPasswordValid ? user : null;
+
         }
     }
 }

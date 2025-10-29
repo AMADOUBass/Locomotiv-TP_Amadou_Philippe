@@ -17,7 +17,6 @@ namespace Locomotiv
         private readonly ServiceProvider _serviceProvider;
         public App()
         {
-            // Note à moi-même, mieux séparer en fonctions ici. 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory());
             IConfiguration configuration = builder.Build();
@@ -31,9 +30,13 @@ namespace Locomotiv
 
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<HomeViewModel>();
-            services.AddSingleton<ConnectUserViewModel>();
+            services.AddSingleton<LoginViewModel>();
+
+            services.AddSingleton<AdminDashboardViewModel>();
+            services.AddSingleton<EmployeDashboardViewModel>();
 
             services.AddSingleton<IUserDAL, UserDAL>();
+            services.AddSingleton<IDialogService, DialogService>();
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IUserSessionService, Service>();
             services.AddSingleton<MainViewModel>();

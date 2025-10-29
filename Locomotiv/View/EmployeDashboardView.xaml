@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Locomotiv.View.EmployeDashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="400" d:DesignWidth="600">
+    <Grid Margin="2">
+        <StackPanel>
+            <TextBlock Text="Détails de la station assignée" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+            <TextBlock Text="Nom de la station: [Bind station name here]" Margin="5"/>
+            <TextBlock Text="Arrivées et départs: [Bind schedule here]" Margin="5"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

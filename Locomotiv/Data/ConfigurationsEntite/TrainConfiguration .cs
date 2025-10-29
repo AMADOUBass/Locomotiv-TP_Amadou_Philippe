@@ -1,0 +1,29 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Seismoscope.Data.ConfigurationsEntite
+{
+    public class TrainConfiguration : IEntityTypeConfiguration<Train>
+    {
+        public void Configure(EntityTypeBuilder<Train> builder)
+        {
+            builder.Property(t => t.Nom).IsRequired();
+            builder.Property(t => t.Etat).IsRequired();
+            builder.Property(t => t.Capacite).IsRequired();
+
+            builder.HasOne(t => t.Station)
+                   .WithMany(s => s.Trains)
+                   .HasForeignKey(t => t.StationId)
+                   .OnDelete(DeleteBehavior.SetNull);
+
+            builder.HasOne(t => t.Itineraire)
+                   .WithOne(i => i.Train)
+                   .HasForeignKey<Itineraire>(i => i.TrainId);
+        }
+    }
+}

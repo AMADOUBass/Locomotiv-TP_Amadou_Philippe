@@ -7,7 +7,13 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="View\ConnectView.xaml.cs">
+    <Compile Update="View\AdminDashboardView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\LoginView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\EmployeDashboardView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\HomeView.xaml.cs">
@@ -21,7 +27,7 @@
     <Page Update="View\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\ConnectView.xaml">
+    <Page Update="View\LoginView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
