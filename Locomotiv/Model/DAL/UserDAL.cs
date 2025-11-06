@@ -17,7 +17,9 @@ namespace Locomotiv.Model.DAL
 
         public User? FindByUsernameAndPassword(string username, string password)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Username == username);
+            var user = _context.Users
+                .Include(u => u.Station)
+                .FirstOrDefault(u => u.Username == username);
             if (user == null)
                 return null;
 
@@ -25,5 +27,6 @@ namespace Locomotiv.Model.DAL
             return isPasswordValid ? user : null;
 
         }
+
     }
 }

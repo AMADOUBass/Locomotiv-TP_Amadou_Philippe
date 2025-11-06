@@ -27,6 +27,11 @@ namespace Seismoscope.Data.ConfigurationsEntite
             builder.HasMany(s => s.Signaux)
                    .WithOne(sig => sig.Station)
                    .HasForeignKey(sig => sig.StationId);
+
+            builder.HasMany(s => s.Employes)
+                   .WithOne(u => u.Station)
+                   .HasForeignKey(u => u.StationId)
+                   .IsRequired(false);
         }
     }
 }

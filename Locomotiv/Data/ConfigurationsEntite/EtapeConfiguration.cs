@@ -20,6 +20,11 @@ namespace Seismoscope.Data.ConfigurationsEntite
             builder.HasOne(e => e.Itineraire)
                    .WithMany(i => i.Etapes)
                    .HasForeignKey(e => e.ItineraireId);
+
+            builder.HasOne(e => e.Block)
+                   .WithMany()
+                   .HasForeignKey(e => e.BlockId)
+                   .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

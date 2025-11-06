@@ -9,5 +9,7 @@ namespace Locomotiv.Model.Interfaces
     public interface IUserDAL
     {
         User? FindByUsernameAndPassword(string username, string password);
+
+
     }
 }

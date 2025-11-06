@@ -11,6 +11,7 @@ namespace Locomotiv
         public MainWindow()
         {
             InitializeComponent();
+
         }
     }
 }

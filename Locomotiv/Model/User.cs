@@ -24,7 +24,7 @@ public class User
     public UserRole Role { get; set; }
 
     public int? StationId { get; set; }
-    public Station Station { get; set; }
+    public Station? Station { get; set; }
 
 
     public User()

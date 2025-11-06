@@ -31,7 +31,7 @@ namespace Locomotiv.ViewModel
             _navigationService = navigationService;
             _userSessionService = userSessionService;
             LoginCommand = new RelayCommand(Login, CanLogin);
-           
+
         }
 
         private string _username;
@@ -137,5 +137,3 @@ namespace Locomotiv.ViewModel
         }
     }
 }
-
-

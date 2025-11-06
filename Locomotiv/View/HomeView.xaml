@@ -7,22 +7,41 @@
              xmlns:converters="clr-namespace:Locomotiv.Utils.Converters"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
+
     <UserControl.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+        <!-- Template pour AdminDashboard -->
+        <DataTemplate x:Key="AdminDashboardTemplate">
+            <local:AdminDashboardView/>
+        </DataTemplate>
+
+        <!-- Template pour EmployeDashboard -->
+        <DataTemplate x:Key="EmployeDashboardTemplate">
+            <local:EmployeDashboardView DataContext="{Binding}" />
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid>
-        <StackPanel Margin="20">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+            <StackPanel Margin="20">
             <TextBlock Text="{Binding WelcomeMessage, UpdateSourceTrigger=PropertyChanged}"
                        FontSize="24"
                        FontWeight="Bold"
                        Margin="10"/>
 
-            <!-- Admin dashboard control -->
-            <local:AdminDashboardView Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVisibilityConverter}}"/>
+            <!-- Admin dashboard -->
+            <ContentControl Content="{Binding AdminDashboardVM}"
+                            ContentTemplate="{StaticResource AdminDashboardTemplate}"
+                            Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
-            <!-- Employe dashboard control -->
-            <local:EmployeDashboardView Visibility="{Binding IsEmploye, Converter={StaticResource BoolToVisibilityConverter}}"/>
+            <!-- Employe dashboard -->
+            <ContentControl Content="{Binding EmployeeDashboardVM}"
+                            ContentTemplate="{StaticResource EmployeDashboardTemplate}"
+                            Visibility="{Binding IsEmploye, Converter={StaticResource BoolToVisibilityConverter}}"/>
         </StackPanel>
+        </ScrollViewer>
+
     </Grid>
 </UserControl>

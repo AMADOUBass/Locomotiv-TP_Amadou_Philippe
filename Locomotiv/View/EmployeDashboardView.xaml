@@ -3,13 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Locomotiv.View"
+             xmlns:converters="clr-namespace:Locomotiv.Utils.Converters"
              mc:Ignorable="d"
              d:DesignHeight="400" d:DesignWidth="600">
     <Grid Margin="2">
-        <StackPanel>
-            <TextBlock Text="Détails de la station assignée" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
-            <TextBlock Text="Nom de la station: [Bind station name here]" Margin="5"/>
-            <TextBlock Text="Arrivées et départs: [Bind schedule here]" Margin="5"/>
+        <StackPanel Margin="20">
+            <StackPanel Margin="20">
+                <TextBlock Text="Station assignée :" FontWeight="Bold" FontSize="16"/>
+                <TextBlock Text="{Binding StationAssignee.Nom , TargetNullValue='Aucune station assignée'}"  Foreground="Black"/>
+                <TextBlock Text="{Binding StationAssignee.Localisation}" Foreground="Black"/>
+                <TextBlock Text="Capacité max :"/>
+                <TextBlock Text="{Binding StationAssignee.CapaciteMaxTrains}" Foreground="Black"/>
+                <TextBlock Text="{Binding GetType.Name}" Foreground="Red"/>
+            </StackPanel>
         </StackPanel>
 
     </Grid>

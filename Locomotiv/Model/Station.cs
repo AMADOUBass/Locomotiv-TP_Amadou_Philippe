@@ -1,6 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 public class Station
 {
+    //enum
+    public enum StationTypeEnum
+    {
+        Station,
+        Port,
+        Connexion,
+        Logistique
+    }
     [Key]
     public int Id { get; set; }
 
@@ -29,9 +37,13 @@ public class Station
 
     public ICollection<Signal> Signaux { get; set; } = new List<Signal>();
 
+    public string StationType { get; set; } = "Station"; // "Station", "Port", "Connexion", "Logistique"
+}
+
+
     //public DateTime DateOuverture { get; set; } = DateTime.Now;
     //public bool EstActive { get; set; } = true;
 
-}
+
 
 

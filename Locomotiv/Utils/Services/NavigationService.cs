@@ -13,6 +13,7 @@ namespace Locomotiv.Utils.Services
         private BaseViewModel _currentView;
         private Func<Type, BaseViewModel> _viewModelFactory;
 
+
         public BaseViewModel CurrentView
         {
             get => _currentView;

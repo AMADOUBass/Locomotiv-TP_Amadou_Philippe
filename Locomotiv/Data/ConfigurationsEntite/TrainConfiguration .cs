@@ -21,9 +21,14 @@ namespace Seismoscope.Data.ConfigurationsEntite
                    .HasForeignKey(t => t.StationId)
                    .OnDelete(DeleteBehavior.SetNull);
 
+            builder.HasOne(t => t.Block)
+                    .WithMany()
+                    .HasForeignKey(t => t.BlockId)
+                    .OnDelete(DeleteBehavior.SetNull); // ← optionnel
             builder.HasOne(t => t.Itineraire)
-                   .WithOne(i => i.Train)
-                   .HasForeignKey<Itineraire>(i => i.TrainId);
+       .WithOne(i => i.Train)
+       .HasForeignKey<Itineraire>(i => i.TrainId)
+       .OnDelete(DeleteBehavior.Cascade); // ou SetNull selon ton besoin
         }
     }
 }

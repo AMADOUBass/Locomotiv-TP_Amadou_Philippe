@@ -20,6 +20,11 @@ namespace Seismoscope.Data.ConfigurationsEntite
             builder.Property(u => u.Role)
                    .HasConversion<string>()
                    .IsRequired();
+
+            builder.HasOne(u => u.Station)
+                     .WithMany(s => s.Employes)
+                     .HasForeignKey(u => u.StationId)
+                     .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

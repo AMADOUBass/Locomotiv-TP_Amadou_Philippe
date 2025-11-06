@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Locomotiv.ViewModel;
+using Locomotiv.Model.DAL;
+using Locomotiv.Utils.Services;
 
 namespace Locomotiv.View
 {
@@ -23,6 +26,7 @@ namespace Locomotiv.View
         public HomeView()
         {
             InitializeComponent();
+
         }
     }
 }

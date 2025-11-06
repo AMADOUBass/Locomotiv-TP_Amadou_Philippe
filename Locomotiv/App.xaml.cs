@@ -36,6 +36,15 @@ namespace Locomotiv
             services.AddSingleton<EmployeDashboardViewModel>();
 
             services.AddSingleton<IUserDAL, UserDAL>();
+            services.AddSingleton<ITrainDAL, TrainDAL>();
+            services.AddSingleton<IVoieDAL, VoieDAL>();
+            services.AddSingleton<IStationDAL, StationDAL>();
+            services.AddSingleton<ISignalDAL, SignalDAL>();
+            services.AddSingleton<IItineraireDAL, ItineraireDAL>();
+            services.AddSingleton<IEtapeDAL, EtapeDAL>();
+            services.AddSingleton<IBlockDAL, BlockDAL>();
+
+
             services.AddSingleton<IDialogService, DialogService>();
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<IUserSessionService, Service>();
@@ -56,13 +65,20 @@ namespace Locomotiv
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            //using (var scope = _serviceProvider.CreateScope())
+            //{
+            //    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            //    if (dbContext.Database.EnsureCreated())
+            //    {
+            //        dbContext.Database.Migrate();
+            //        dbContext.SeedData();
+            //    }
+            //}
             using (var scope = _serviceProvider.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                if (dbContext.Database.EnsureCreated())
-                {
-                    dbContext.SeedData();
-                }
+                dbContext.Database.Migrate(); // Applique les migrations si besoin
+                dbContext.SeedData(force: true); // Force le seed même si des users existent
             }
 
             var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
