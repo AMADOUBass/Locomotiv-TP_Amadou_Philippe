@@ -1,6 +1,6 @@
 ﻿using Locomotiv.Utils.Services;
 using Microsoft.EntityFrameworkCore;
-using Seismoscope.Utils;
+using Locomotiv.Utils;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using static Block;

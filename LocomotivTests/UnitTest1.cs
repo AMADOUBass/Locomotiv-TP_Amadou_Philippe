@@ -1,4 +1,5 @@
-namespace LocomotivTest
+
+namespace LocomotivTests
 {
     public class UnitTest1
     {

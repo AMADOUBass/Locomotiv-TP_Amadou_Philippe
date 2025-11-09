@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Seismoscope.Utils
+namespace Locomotiv.Utils
 {
    
     public static class PassWordHelper

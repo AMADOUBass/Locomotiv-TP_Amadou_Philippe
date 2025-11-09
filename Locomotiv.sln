@@ -5,7 +5,7 @@ VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Locomotiv", "Locomotiv\Locomotiv.csproj", "{AD239868-257B-4135-8414-BCF1DBE58A0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocomotivTest", "LocomotivTest\LocomotivTest.csproj", "{855B3D80-F26A-4ADC-93E1-12E5FA697F61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocomotivTests", "LocomotivTestss\LocomotivTests.csproj", "{2EE52688-EEA0-4327-802F-45F6A439E47F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +17,15 @@ Global
 		{AD239868-257B-4135-8414-BCF1DBE58A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD239868-257B-4135-8414-BCF1DBE58A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD239868-257B-4135-8414-BCF1DBE58A0A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{855B3D80-F26A-4ADC-93E1-12E5FA697F61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{855B3D80-F26A-4ADC-93E1-12E5FA697F61}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{855B3D80-F26A-4ADC-93E1-12E5FA697F61}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{855B3D80-F26A-4ADC-93E1-12E5FA697F61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EE52688-EEA0-4327-802F-45F6A439E47F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EE52688-EEA0-4327-802F-45F6A439E47F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EE52688-EEA0-4327-802F-45F6A439E47F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EE52688-EEA0-4327-802F-45F6A439E47F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DD432931-F948-423D-8305-A580CEE81199}
 	EndGlobalSection
 EndGlobal

@@ -2,7 +2,7 @@
 using System.Linq;
 using Locomotiv.Model.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Seismoscope.Utils;
+using Locomotiv.Utils;
 
 namespace Locomotiv.Model.DAL
 {
