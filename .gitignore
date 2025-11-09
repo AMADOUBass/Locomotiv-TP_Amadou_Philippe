@@ -21,6 +21,11 @@ TestResults/
 *.suo
 *.userosscache
 *.sln.docstates
+Visual Studio 2022/
+
+
+
+
 
 # Débogage
 *.pdb
