@@ -4,7 +4,10 @@ obj/
 TestResults/
 .vs/
 .vscode/
-
+Locomotiv/bin/
+Locomotiv/obj/
+LocomotivTests/bin/
+LocomotivTests/obj/
 # Fichiers temporaires
 *.log
 *.tmp
