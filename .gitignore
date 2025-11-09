@@ -1,3 +1,44 @@
-.vs
-**/bin
-**/obj
+# Dossiers de build
+bin/
+obj/
+TestResults/
+.vs/
+.vscode/
+
+# Fichiers temporaires
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Fichiers de test
+*.trx
+*.coverage
+*.coveragexml
+
+# Visual Studio
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Débogage
+*.pdb
+*.natvis
+
+# Configuration locale
+appsettings.Development.json
+appsettings.Local.json
+
+# Publication
+publish/
+*.pubxml
+*.publishproj
+
+# Dépendances
+packages/
+*.nupkg
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
