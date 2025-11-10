@@ -1,4 +1,5 @@
-﻿using Locomotiv.Model.DAL;
+﻿using Locomotiv.Model;
+using Locomotiv.Model.DAL;
 using Locomotiv.Model.Interfaces;
 using Locomotiv.Utils;
 using Locomotiv.Utils.Commands;
@@ -22,6 +23,8 @@ namespace Locomotiv.ViewModel
         private readonly ITrainDAL _trainDAL;
         private readonly IStationDAL _stationDAL;
         private readonly IBlockDAL _blockDAL;
+        private readonly IPointArretDAL _pointArretDAL;
+        private readonly IItineraireDAL _itineraireDAL;
         private readonly INavigationService _navigationService;
         private readonly IUserSessionService _userSessionService;
 
@@ -47,17 +50,19 @@ namespace Locomotiv.ViewModel
         // Commande pour la déconnexion
         public ICommand LogoutCommand { get; set; }
 
-        public HomeViewModel(IUserDAL userDAL, INavigationService navigationService, IUserSessionService userSessionService, IDialogService dialogService, ITrainDAL trainDAL,IStationDAL stationDAL, IBlockDAL blockDAL)
+        public HomeViewModel(IUserDAL userDAL, INavigationService navigationService, IUserSessionService userSessionService, IDialogService dialogService, ITrainDAL trainDAL,IStationDAL stationDAL, IBlockDAL blockDAL , IPointArretDAL pointArretDAL, IItineraireDAL itineraireDAL)
         {
             _userDAL = userDAL;
             _trainDAL = trainDAL;
             _stationDAL = stationDAL;
             _blockDAL = blockDAL;
+            _pointArretDAL = pointArretDAL;
+            _itineraireDAL = itineraireDAL;
             _navigationService = navigationService;
             _userSessionService = userSessionService;
             _dialogService = dialogService;
             LogoutCommand = new RelayCommand(Logout, CanLogout);
-            AdminDashboardVM = new AdminDashboardViewModel(trainDAL,dialogService,stationDAL, _blockDAL);
+            AdminDashboardVM = new AdminDashboardViewModel(trainDAL,dialogService,stationDAL, _blockDAL , pointArretDAL , itineraireDAL);
             EmployeeDashboardVM = new EmployeDashboardViewModel(stationDAL,userSessionService);
 
           

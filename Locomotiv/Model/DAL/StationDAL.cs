@@ -39,7 +39,18 @@ namespace Locomotiv.Model.DAL
                 .FirstOrDefault(s => s.Id == id);
         }
 
-
+        public List<PointArret> GetAllStationsAsPointArrets()
+        {
+            return _context.Station.Select(s => new PointArret
+            {
+                Id = s.Id,
+                Nom = s.Nom,
+                Localisation = s.Localisation,
+                Latitude = s.Latitude,
+                Longitude = s.Longitude,
+                EstStation = true
+            }).ToList();
+        }
 
     }
 }

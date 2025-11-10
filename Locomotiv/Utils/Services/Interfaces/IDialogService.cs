@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Locomotiv.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,11 @@ namespace Locomotiv.Utils.Services.Interfaces
         void ShowMessage(string message, string title = "Info");
 
 
-        bool ShowTrainDialog(out Train train);
+        bool ShowTrainDialog(List<Station> stations, out Train train);
 
-        bool ShowPlanifierItineraireDialog(out Itineraire itineraire);
+        bool ShowPlanifierItineraireDialog(List<Train> trains, List<PointArret> pointsArret, out Train trainSélectionné, out List<PointArret> arretsSélectionnés);
+
+        bool ShowDeleteTrainDialog(List<Station> stations, out Train train);
     }
 
 }

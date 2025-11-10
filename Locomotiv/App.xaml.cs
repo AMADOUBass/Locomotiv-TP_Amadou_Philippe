@@ -9,6 +9,7 @@ using Locomotiv.Utils.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using Locomotiv.Model;
 
 namespace Locomotiv
 {
@@ -43,6 +44,7 @@ namespace Locomotiv
             services.AddSingleton<IItineraireDAL, ItineraireDAL>();
             services.AddSingleton<IEtapeDAL, EtapeDAL>();
             services.AddSingleton<IBlockDAL, BlockDAL>();
+            services.AddSingleton<IPointArretDAL, PointArretDAL>();
 
 
             services.AddSingleton<IDialogService, DialogService>();

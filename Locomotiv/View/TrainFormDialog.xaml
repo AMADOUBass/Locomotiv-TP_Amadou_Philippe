@@ -33,7 +33,9 @@
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5">
             <Label Content="Station ID:" Width="100"/>
-            <TextBox x:Name="txtStationId" Width="250"/>
+            <ComboBox x:Name="cmbStation" Width="250"
+                DisplayMemberPath="Nom"
+                SelectedValuePath="Id"/>
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10">

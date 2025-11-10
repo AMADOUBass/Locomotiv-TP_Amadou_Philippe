@@ -11,6 +11,7 @@ namespace Locomotiv.Model.Interfaces
 
         IEnumerable<Station> GetAllStations();
         Station? GetStationById(int id);
+        List<PointArret> GetAllStationsAsPointArrets();
 
 
     }

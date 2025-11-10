@@ -7,6 +7,9 @@
     mc:Ignorable="d"
     Loaded="AdminDashboardView_Loaded"
     d:DesignHeight="600" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </UserControl.Resources>
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,8 +21,18 @@
 
             <!-- Détails de la station sélectionnée -->
             <GroupBox Header="Station sélectionnée" Margin="0,10,0,10">
+                <!--Visibility="{Binding EstStationSelectionnee, Converter={StaticResource BoolToVisibilityConverter}}"-->
                 <StackPanel>
+                    
+            
 
+                    <!-- Détails du point d’intérêt -->
+                    <StackPanel Visibility="{Binding EstPointInteretSelectionne, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="{Binding PointInteretSelectionne.Nom}" />
+                        <TextBlock Text="{Binding PointInteretSelectionne.Localisation}" />
+                        <!-- etc. -->
+                    </StackPanel>
+                    <!-- Détails de la station -->
                     <TextBlock Text="{Binding StationSelectionnee.Nom}" FontWeight="Bold" FontSize="16"/>
                     <TextBlock Text="Capacité maximale:"/>
                     <TextBlock Text="{Binding StationSelectionnee.CapaciteMaxTrains}"/>
@@ -68,7 +81,7 @@
             <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
                 <Button Content="Ajouter un train" Command="{Binding AjouterTrainCommand}" Margin="5"/>
                 <Button Content="Supprimer un train" Command="{Binding SupprimerTrainCommand}" Margin="5"/>
-                <Button Content="Planifier un itinéraire" Margin="5"/>
+                <Button Content="Planifier un itinéraire" Command="{Binding PlanifierItineraireCommand}" Margin="5"/>
             </StackPanel>
 
             <!-- Erreurs -->

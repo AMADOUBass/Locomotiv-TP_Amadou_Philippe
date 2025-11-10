@@ -19,6 +19,8 @@ namespace LocomotivTests
         private readonly Mock<INavigationService> _navMock = new();
         private readonly Mock<IUserSessionService> _sessionMock = new();
         private readonly Mock<IDialogService> _dialogMock = new();
+        private readonly Mock<IPointArretDAL> _pointArretDalMock = new();
+        private readonly Mock<IItineraireDAL> _itineraireDalMock = new();
 
         private HomeViewModel CreateViewModel(User? user = null)
         {
@@ -32,7 +34,11 @@ namespace LocomotivTests
                 _dialogMock.Object,
                 _trainDalMock.Object,
                 _stationDalMock.Object,
-                _blockDalMock.Object
+                _blockDalMock.Object,
+                _pointArretDalMock.Object,
+                _itineraireDalMock.Object
+               
+
             );
         }
 
@@ -75,7 +81,9 @@ namespace LocomotivTests
                 _dialogMock.Object,
                 _trainDalMock.Object,
                 _stationDalMock.Object,
-                _blockDalMock.Object
+                _blockDalMock.Object,
+                _pointArretDalMock.Object,
+                _itineraireDalMock.Object
             );
 
             Assert.Equal(expectAdmin, vm.IsAdmin);

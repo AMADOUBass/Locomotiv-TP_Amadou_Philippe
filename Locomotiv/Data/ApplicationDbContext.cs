@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Locomotiv.Utils;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
-using static Block;
+using Locomotiv.Model;
 
 public class ApplicationDbContext : DbContext
 {
@@ -15,8 +15,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Signal> Signau { get; set; }
     public DbSet<Voie> Voie { get; set; }
     public DbSet<Etape> Etape { get; set; }
-
     public DbSet<Block> Blocks { get; set; }
+    public DbSet<PointArret> PointArret { get; set; }
 
 
 
@@ -80,20 +80,6 @@ public class ApplicationDbContext : DbContext
                 CapaciteMaxTrains = 3
             };
             Station.Add(gareGatineau);
-
-            // Points d’intérêt logistiques et connexions
-            var pointsInteret = new List<Station>
-{
-                new() { Nom = "Port de Québec", Localisation = "Vieux-Port", Latitude = 46.8219, Longitude = -71.2083, CapaciteMaxTrains = 2 },
-                new() { Nom = "Baie de Beauport", Localisation = "Zone maritime", Latitude = 46.8458, Longitude = -71.1986, CapaciteMaxTrains = 2 },
-                new() { Nom = "Centre de distribution", Localisation = "Industriel", Latitude = 46.8250, Longitude = -71.2450, CapaciteMaxTrains = 2 },
-                new() { Nom = "Vers Gatineau", Localisation = "Connexion interrégionale", Latitude = 46.8400, Longitude = -71.2600, CapaciteMaxTrains = 0 },
-                new() { Nom = "Vers Charlevoix", Localisation = "Connexion touristique", Latitude = 46.8500, Longitude = -71.1800, CapaciteMaxTrains = 0 },
-                new() { Nom = "Vers la rive-sud", Localisation = "Connexion sud", Latitude = 46.8100, Longitude = -71.2300, CapaciteMaxTrains = 0 },
-                new() { Nom = "Vers le nord", Localisation = "Connexion nord", Latitude = 46.8600, Longitude = -71.2200, CapaciteMaxTrains = 0 }
-};
-            Station.AddRange(pointsInteret);
-            SaveChanges();
             SaveChanges();
 
             // Utilisateurs
@@ -150,7 +136,7 @@ public class ApplicationDbContext : DbContext
                 LongitudeDepart = -71.213900,
                 LatitudeArrivee = 46.814186,
                 LongitudeArrivee = -71.210507,
-                Signal = SignalType.Vert,
+                Signal = Block.SignalType.Vert,
                 EstOccupe = true,
                 TrainId = trainA.Id
             };
@@ -165,7 +151,7 @@ public class ApplicationDbContext : DbContext
                 LongitudeDepart = -71.210507,
                 LatitudeArrivee = 46.819000,
                 LongitudeArrivee = -71.250000,
-                Signal = SignalType.Jaune,
+                Signal = Block.SignalType.Jaune,
                 EstOccupe = false
             },
             new ()
@@ -175,7 +161,7 @@ public class ApplicationDbContext : DbContext
                 LongitudeDepart = -71.213900,
                 LatitudeArrivee = 46.845833,
                 LongitudeArrivee = -71.198611,
-                Signal = SignalType.Rouge,
+                Signal = Block.SignalType.Rouge,
                 EstOccupe = false
             },
             new ()
@@ -185,7 +171,7 @@ public class ApplicationDbContext : DbContext
                 LongitudeDepart = -71.210507,
                 LatitudeArrivee = 46.821957,
                 LongitudeArrivee = -71.208304,
-                Signal = SignalType.Vert,
+                Signal = Block.SignalType.Vert,
                 EstOccupe = false
             },
             new ()
@@ -195,7 +181,7 @@ public class ApplicationDbContext : DbContext
                 LongitudeDepart = -71.213700,
                 LatitudeArrivee = 46.830000,
                 LongitudeArrivee = -71.220000,
-                Signal = SignalType.Vert,
+                Signal = Block.SignalType.Vert,
                 EstOccupe = false
             }
         };

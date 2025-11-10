@@ -1,10 +1,12 @@
 ﻿using GMap.NET;
+using Locomotiv.Model;
 using Locomotiv.Model.DAL;
 using Locomotiv.Model.Interfaces;
 using Locomotiv.Utils;
 using Locomotiv.Utils.Commands;
 using Locomotiv.Utils.Services;
 using Locomotiv.Utils.Services.Interfaces;
+using Locomotiv.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,6 +24,8 @@ namespace Locomotiv.ViewModel
         private readonly IStationDAL _stationDAL;
         private readonly IDialogService _dialogService;
         private readonly IBlockDAL _blockDAL;
+        private readonly IPointArretDAL _pointArretDAL;
+        private readonly IItineraireDAL _itineraireDAL;
         public IEnumerable<Station> GetStations() => Stations;
         public IEnumerable<Train> GetTrainsEnMouvement() => TrainsEnMouvement;
         public ObservableCollection<Block> Blocks { get; set; } = new();
@@ -33,6 +37,7 @@ namespace Locomotiv.ViewModel
         }
         public ObservableCollection<Train> Trains { get; set; } = new ObservableCollection<Train>();
         public ObservableCollection<Station> Stations { get; set; } = new ObservableCollection<Station>();
+        public ObservableCollection<PointArret> PointsInteret { get; set; } = new ObservableCollection<PointArret>();
 
         public ObservableCollection<Train> TrainsEnMouvement =>
             new ObservableCollection<Train>(Trains.Where(t => t.Etat == EtatTrain.EnTransit));
@@ -43,7 +48,7 @@ namespace Locomotiv.ViewModel
         public ObservableCollection<Train> DepartsDeLaStationSelectionnee =>
             new ObservableCollection<Train>(Trains.Where(t => t.Station?.Id == StationSelectionnee?.Id && t.Etat == EtatTrain.EnAttente));
 
-
+        public PointArret PointArretSelectionne { get; set; }
 
 
 
@@ -61,6 +66,8 @@ namespace Locomotiv.ViewModel
 
         public ICommand AjouterTrainCommand { get; }
         public ICommand SupprimerTrainCommand { get; }
+        public ICommand PlanifierItineraireCommand { get; }
+
 
         private Train? _selectedTrain;
         public Train? SelectedTrain
@@ -88,20 +95,36 @@ namespace Locomotiv.ViewModel
 
             }
         }
+        private PointArret? _pointInteretSelectionne;
+        public PointArret? PointInteretSelectionne
+        {
+            get => _pointInteretSelectionne;
+            set
+            {
+                _pointInteretSelectionne = value;
+                OnPropertyChanged(nameof(PointInteretSelectionne));
+            }
+        }
 
 
 
-        public AdminDashboardViewModel(ITrainDAL trainDAL, IDialogService dialogService,IStationDAL station,IBlockDAL block)
+
+        public AdminDashboardViewModel(ITrainDAL trainDAL, IDialogService dialogService,IStationDAL station,IBlockDAL block, IPointArretDAL pointArretDAL , IItineraireDAL itineraireDAL)
         {
             _trainDAL = trainDAL;
             _dialogService = dialogService;
             _stationDAL = station;
             _blockDAL = block;
+            _pointArretDAL = pointArretDAL;
+            _itineraireDAL = itineraireDAL;
             AjouterTrainCommand = new RelayCommand(AddTrain);
             SupprimerTrainCommand = new RelayCommand(DeleteTrain);
+            //PlanifierItineraireCommand = new RelayCommand(PlanifierItineraire);
             LoadStations();
             LoadTrains();
             LoadBlocks();
+            LoadPointsInteret();
+         
 
         }
         private void LoadStations()
@@ -109,6 +132,12 @@ namespace Locomotiv.ViewModel
             var stations = _stationDAL.GetAllStations();
             Stations = new ObservableCollection<Station>(stations);
         }
+        private void LoadPointsInteret()
+        {
+            //var arrets = _pointArretDAL.GetAllPointArrets();
+            //PointsInteret = new ObservableCollection<PointArret>(arrets);
+        }
+
 
         private void LoadTrains()
         {
@@ -118,7 +147,8 @@ namespace Locomotiv.ViewModel
 
         private void AddTrain()
         {
-            if (_dialogService.ShowTrainDialog(out Train train))
+            var stations = _stationDAL.GetAllStations().ToList();
+            if (_dialogService.ShowTrainDialog(stations,out Train train))
             {
                 _trainDAL.AddTrain(train);
                 Trains.Add(train);
@@ -128,15 +158,43 @@ namespace Locomotiv.ViewModel
 
         private void DeleteTrain()
         {
-            //if (SelectedTrain == null) return;
+            var stations = _stationDAL.GetAllStations().ToList();
+            if (_dialogService.ShowDeleteTrainDialog(stations, out Train trainASupprimer))
+            {
+                _trainDAL.DeleteTrain(trainASupprimer.Id);
+                Trains.Remove(trainASupprimer);
+                _dialogService.ShowMessage($"Train '{trainASupprimer.Nom}' supprimé avec succès!", "Suppression de Train");
+            }
 
-            //if (_dialogService.ShowConfirmation($"Voulez-vous vraiment supprimer '{SelectedTrain.Nom}' ?"))
-            //{
-            //    _trainDAL.DeleteTrain(SelectedTrain.Id);
-            //    Trains.Remove(SelectedTrain);
-            //    _dialogService.ShowMessage($"Train '{SelectedTrain.Nom}' supprimé avec succès!", "Suppression de Train");
-            //}
         }
+        //private void PlanifierItineraire()
+        //{
+        //    var trains = _trainDAL.GetAllTrains().ToList();
+        //    //var pointsArret = _pointArretDAL.GetAllPointArrets().ToList();
+
+        //    if (_dialogService.ShowPlanifierItineraireDialog(trains, pointsArret, out var train, out var arrets))
+        //    {
+        //        var itineraire = new Itineraire
+        //        {
+        //            Nom = $"Itinéraire {DateTime.Now:yyyyMMdd_HHmm}",
+        //            DateDepart = DateTime.Now,
+        //            DateArrivee = DateTime.Now.AddHours(2),
+        //            TrainId = train.Id,
+        //            Etapes = arrets.Select((arret, index) => new Etape
+        //            {
+        //                Ordre = index,
+        //                Lieu = arret.Nom,
+        //                HeureArrivee = DateTime.Now.AddMinutes(index * 10),
+        //                HeureDepart = DateTime.Now.AddMinutes(index * 10 + 5),
+        //                TrainId = train.Id
+        //            }).ToList()
+        //        };
+
+        //        _itineraireDAL.PlanifierItineraire(itineraire);
+        //        _dialogService.ShowMessage("Itinéraire planifié avec succès!", "Planification");
+        //    }
+        //}
+
         private double DistanceKm(PointLatLng a, PointLatLng b)
         {
             const double R = 6371; // Rayon terrestre en km

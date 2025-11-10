@@ -8,7 +8,6 @@ namespace Locomotiv.Model.Interfaces
 {
     public interface IItineraireDAL
     {
-   
-
+        void PlanifierItineraire(Itineraire itineraire);
     }
 }

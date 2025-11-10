@@ -41,9 +41,5 @@ public class Station
 }
 
 
-    //public DateTime DateOuverture { get; set; } = DateTime.Now;
-    //public bool EstActive { get; set; } = true;
-
-
 
 

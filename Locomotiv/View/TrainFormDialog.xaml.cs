@@ -22,9 +22,12 @@ namespace Locomotiv.View
 
     {
         public Train Train { get; private set; }
-        public TrainFormDialog()
+        public List<Station> Stations { get; set; }
+        public TrainFormDialog(List<Station> stations)
         {
             InitializeComponent();
+            Stations = stations;
+            cmbStation.ItemsSource = Stations;
         }
         private void BtnValider_Click(object sender, RoutedEventArgs e)
         {
@@ -34,9 +37,9 @@ namespace Locomotiv.View
                 Nom = txtNom.Text,
                 Etat = (EtatTrain)cmbEtat.SelectedItem,
                 Capacite = int.Parse(txtCapacite.Text),
-                StationId = int.Parse(txtStationId.Text),
+                StationId = (int)cmbStation.SelectedValue,
+                Station = (Station)cmbStation.SelectedItem,
                 Itineraire = null, // L'itinéraire peut être défini ultérieurement
-                Station = null
             };
             DialogResult = true;
             Close();

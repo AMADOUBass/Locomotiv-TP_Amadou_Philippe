@@ -1,4 +1,5 @@
-﻿using Locomotiv.Utils.Services.Interfaces;
+﻿using Locomotiv.Model;
+using Locomotiv.Utils.Services.Interfaces;
 using Locomotiv.View;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,9 @@ namespace Locomotiv.Utils.Services
         {
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
         }
-        public bool ShowTrainDialog(out Train train)
+        public bool ShowTrainDialog(List<Station> stations, out Train train)
         {
-            var dialog = new TrainFormDialog();
+            var dialog = new TrainFormDialog(stations);
             var result = dialog.ShowDialog();
             if (result == true)
             {
@@ -27,17 +28,22 @@ namespace Locomotiv.Utils.Services
             train = null;
             return false;
         }
-        public bool ShowPlanifierItineraireDialog(out Itineraire itineraire)
+        public bool ShowPlanifierItineraireDialog(List<Train> trains, List<PointArret> pointsArret, out Train trainSélectionné, out List<PointArret> arretsSélectionnés)
         {
-            //var dialog = new ItineraireFormDialog();
-            //var result = dialog.ShowDialog();
-            //if (result == true)
-            //{
-            //    itineraire = dialog.Itineraire;
-            //    return true;
-            //}
-            itineraire = null;
-            return false;
+            var dialog = new PlanifierItineraireDialog(trains, pointsArret);
+            var result = dialog.ShowDialog() == true;
+
+            trainSélectionné = dialog.TrainSélectionné;
+            arretsSélectionnés = dialog.ArretsSélectionnés;
+
+            return result;
+        }
+        public bool ShowDeleteTrainDialog(List<Station> stations, out Train train)
+        {
+            var dialog = new DeleteTrainDialog(stations);
+            var result = dialog.ShowDialog();
+            train = dialog.TrainASupprimer;
+            return result == true && train != null;
         }
     }
 

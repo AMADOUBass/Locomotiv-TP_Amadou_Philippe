@@ -11,7 +11,18 @@ namespace Locomotiv.Model.DAL
     {
         private readonly ApplicationDbContext _context;
         // Implementation for Train Data Access Layer
-      
+        
+        public ItineraireDAL(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+
+        public void PlanifierItineraire(Itineraire itineraire)
+        {
+            _context.Itineraire.Add(itineraire);
+            _context.SaveChangesAsync();
+        }
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsPresentation;
+using Locomotiv.Model;
 using Locomotiv.ViewModel;
 using Microsoft.Web.WebView2.Core;
 using System;
@@ -20,8 +21,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using static Block;
 using System.Windows.Shapes;
+using static Block;
 
 
 
@@ -46,7 +47,8 @@ namespace Locomotiv.View
                     if (DataContext is AdminDashboardViewModel vm)
                     {
                         InitMap();
-                        LoadStationMarkers(vm.GetStations());
+                        LoadPointArretMarkers(vm.PointsInteret);
+                        //LoadStationMarkers(vm.GetStations());
                         LoadTrainMarkers(vm.GetTrainsEnMouvement());
                         LoadBlockRoutes(vm.Blocks);
 
@@ -83,46 +85,88 @@ namespace Locomotiv.View
             //AddMarker(QuebecCenter, , Brushes.Black);
 
         }
-
-        public void LoadStationMarkers(IEnumerable<Station> stations)
+       
+        public void LoadPointArretMarkers(IEnumerable<PointArret> pointsArret)
         {
-            //MapControl.Markers.Clear();
-            foreach (var station in stations)
-            {
-                if (station.Latitude == 0 && station.Longitude == 0)
-                {
-                    Console.WriteLine($"Coordonnées invalides pour : {station.Nom}");
-                    continue;
-                }
+            //MapControl.Markers.Clear(); // Réinitialise la carte
 
-                var position = new PointLatLng(station.Latitude, station.Longitude);
+            foreach (var arret in pointsArret)
+            {
+                if (arret.Latitude == 0 && arret.Longitude == 0)
+                    continue;
+
+                var position = new PointLatLng(arret.Latitude, arret.Longitude);
+                var couleur = arret.EstStation ? Brushes.Blue : Brushes.Green;
+                var remplissage = arret.EstStation ? Brushes.LightBlue : Brushes.LightGreen;
+
                 var marker = new GMapMarker(position)
                 {
                     Shape = new Ellipse
                     {
                         Width = 12,
                         Height = 12,
-                        Stroke = Brushes.Blue,
+                        Stroke = couleur,
                         StrokeThickness = 2,
-                        Fill = Brushes.LightBlue,
-                        ToolTip = station.Nom + $" (Capacité: {station.CapaciteMaxTrains} trains)"
+                        Fill = remplissage,
+                        ToolTip = arret.Nom
                     },
                     Offset = new Point(-6, -6),
-                    Tag = station
+                    Tag = arret
                 };
+
                 marker.Shape.MouseLeftButtonUp += (s, e) =>
                 {
                     if (DataContext is AdminDashboardViewModel vm)
                     {
-                        vm.StationSelectionnee = marker.Tag as Station;
+                        vm.PointArretSelectionne = marker.Tag as PointArret;
                         MapControl.Position = position;
                         MapControl.Zoom = 15;
                     }
                 };
-                MapControl.Markers.Add(marker);
 
+                MapControl.Markers.Add(marker);
             }
         }
+
+        //public void LoadStationMarkers(IEnumerable<Station> stations)
+        //{
+        //    //MapControl.Markers.Clear();
+        //    foreach (var station in stations)
+        //    {
+        //        if (station.Latitude == 0 && station.Longitude == 0)
+        //        {
+        //            Console.WriteLine($"Coordonnées invalides pour : {station.Nom}");
+        //            continue;
+        //        }
+
+        //        var position = new PointLatLng(station.Latitude, station.Longitude);
+        //        var marker = new GMapMarker(position)
+        //        {
+        //            Shape = new Ellipse
+        //            {
+        //                Width = 12,
+        //                Height = 12,
+        //                Stroke = Brushes.Blue,
+        //                StrokeThickness = 2,
+        //                Fill = Brushes.LightBlue,
+        //                ToolTip = station.Nom + $" (Capacité: {station.CapaciteMaxTrains} trains)"
+        //            },
+        //            Offset = new Point(-6, -6),
+        //            Tag = station
+        //        };
+        //        marker.Shape.MouseLeftButtonUp += (s, e) =>
+        //        {
+        //            if (DataContext is AdminDashboardViewModel vm)
+        //            {
+        //                vm.StationSelectionnee = marker.Tag as Station;
+        //                MapControl.Position = position;
+        //                MapControl.Zoom = 15;
+        //            }
+        //        };
+        //        MapControl.Markers.Add(marker);
+
+        //    }
+        //}
 
         private Brush GetTrainColor(EtatTrain etat) => etat switch
         {
