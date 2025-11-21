@@ -84,13 +84,8 @@ namespace Locomotiv.ViewModel
                 if (user != null)
                 {
                     _userSessionService.ConnectedUser = user;
-
                     _dialogService.ShowMessage($"Bienvenue, {user.Prenom} {user.Nom}!", "Connexion réussie");
-
-                    if (user.Role == UserRole.Admin)
-                        _navigationService.NavigateTo<HomeViewModel>();
-                    else
-                        _navigationService.NavigateTo<HomeViewModel>();
+                    _navigationService.NavigateTo<HomeViewModel>();
                 }
                 else
                 {
