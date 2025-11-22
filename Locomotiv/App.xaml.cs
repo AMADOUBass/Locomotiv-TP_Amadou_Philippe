@@ -7,6 +7,7 @@ using Locomotiv.Model.Interfaces;
 using Locomotiv.Utils;
 using Locomotiv.Utils.Services;
 using Locomotiv.Utils.Services.Interfaces;
+using Locomotiv.Utils.Services.Locomotiv.Utils.Services;
 using Locomotiv.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -50,7 +51,7 @@ namespace Locomotiv
             services.AddSingleton<IDatabaseSeeder, DatabaseSeeder>();
             services.AddSingleton<IDialogService, DialogService>();
             services.AddSingleton<INavigationService, NavigationService>();
-            services.AddSingleton<IUserSessionService, Service>();
+            services.AddSingleton<IUserSessionService, UserSessionService>();
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<Func<Type, BaseViewModel>>(serviceProvider =>
             {
