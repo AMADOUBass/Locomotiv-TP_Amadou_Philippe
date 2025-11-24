@@ -103,7 +103,7 @@ icône d’alerte 🚨
 
 6. Itinéraires valides pour les tests
 
-Ce sont les itinéraires “réalistes” qui suivent exactement les rails et ne sautent aucune station, recommandés pour les tests :
+Ce sont les itinéraires “réalistes” qui suivent exactement les rails recommandés pour les tests :
 
 A → B → C (axe principal)
 
